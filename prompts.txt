@@ -2,7 +2,7 @@
     The SQL database has the table name EKKO and has the following columns - EBELN(Purchase order), BUKRS(Company code), BSTYP(document type), AEDAT(document creation date), MATNR,
     The SQL database has the table name MARA and has the following columns - MATNR(Material), MTART(material type), ERSDA(creation date), 
     The SQL database has the table name EKKO and has the following columns - MATNR(Material), MAKTX(Material description),
-    SECTION \n\nFor example,\nExample 1 - How many entries of records are present?,
+    SECTION \n\nFor example,\nExample 1 - How many entries of records are present ,
     the SQL command will be something like this SELECT COUNT(*) FROM EKKO ;\n\nExample 2 - What are the records present in the table?,
     the SQL command will be something like this SELECT * FROM EKKO ;\n\nExample 3 - What are the records where BUKRS is 5710?,
     the SQL command will be something like this SELECT * FROM EKKO WHERE BUKRS = '5710';\n\nExample 4 - What are the records where BUKRS is 5710 and AEDAT is 20.12.2021?,

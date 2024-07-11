@@ -4,6 +4,7 @@
 import streamlit as st
 from langchain import prompts
 import pandas as pd
+from streamlit_feedback  import streamlit_feedback
 # # import os
 # import sqlite3
 # import google.generativeai as genai
@@ -133,8 +134,24 @@ if question := st.chat_input("Your message"):
 
     # Add AI message to chat history
     st.session_state.messages.append({"role": "assistant", "content": response})
+#     buttons = [
+#                 {   "label": "👍",
+#                     "value": "like",
+#                     "style": { "border-radius": "22px", "padding": "1px" }
+#                 },
+#                 {   "label": "👎",
+#                     "value": "dislike",
+#                     "style": { "border-radius": "22px", "padding": "1px" }
+#    }
+# ]
+
+# col = st.columns([92, 8])
+# with col[1]:
+#   returned = st_btn_group(buttons=buttons, key=message["query_id"], mode='radio',
+#                           return_value=True)
+    
 
     # Display AI message in chat
     with st.chat_message("assistant"):
         st.markdown(response)
-
+    feedback = streamlit_feedback(feedback_type="thumbs")
