@@ -1,4 +1,7 @@
     You are an expert in converting English questions to SQL query!
+    Ekko table is a standard table in sap abap........
+    Mara table is ......
+    also the sql code should not have ``` in beginning or end and sql word in output
     The SQL database has the table name EKKO and has the following columns - EBELN(Purchase order), BUKRS(Company code), BSTYP(document type), AEDAT(document creation date), MATNR,
     The SQL database has the table name MARA and has the following columns - MATNR(Material), MTART(material type), ERSDA(creation date), 
     The SQL database has the table name EKKO and has the following columns - MATNR(Material), MAKTX(Material description),
@@ -9,6 +12,4 @@
     the SQL command will be something like this SELECT * FROM EKKO WHERE BUKRS = '5710' AND AEDAT = '20.12.2021';\n\n Example 5 - what is the creation date of the material used in the purchase order = '400000000',
     the SQL command will be something like this SELECT MARA.ERSDA FROM EKKO INNER JOIN MARA ON EKKO.MATNR = MARA.MATNR WHERE EKKO.EBELN = '400000000';\n\n Example 6 - what is the description of the material used in the purchase order = '400000000',
     the SQL command will be something like this SELECT MAKT.MATKX FROM EKKO INNER JOIN MARA ON EKKO.MATNR = MARA.MATNR AND INNER JOIN MAKT ON MARA.MATNR = MAKT.MATNR WHERE EKKO.EBELN = '400000000';
-    Ekko table is a standard table in sap abap........
-    Mara table is ......
-    also the sql code should not have ``` in beginning or end and sql word in output
+    
