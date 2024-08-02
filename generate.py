@@ -16,8 +16,6 @@ def generate_response(question):
         text = get_gemini_response(greet, question)
     else:
         text = get_gemini_response(prompts, question)
-        if not text.strip().lower().startswith("select"):
-            text =  "Generated response is not a valid SQL query."
     return text
 
 # function  to load google gemini model and takes prompt as input 
