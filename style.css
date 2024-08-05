@@ -1,0 +1,42 @@
+/* ul[data-v-96be9aef] {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+} */
+
+
+/* pan[data-v-96be9aef] {
+    color: #0f0f0f;
+    display: block;
+    text-align: left;
+    padding-left: 15px;
+} */
+
+/* img[data-v-96be9aef] {
+    display: flex;
+    height: 1.875rem;
+    border-radius: 20%;
+} */
+
+header[data-testid="stHeader"] {
+    z-index: 0;
+    height: 2.875rem;
+    background-color: rgb(250,250,250);
+}
+/* 
+nav[data-v-96be9aef]  {
+    align-items: center;
+    display: flex;
+    font-family: 'Source Sans Pro';
+    height: 2.875rem;
+    /* justify-content: flex-start; */
+    /* padding-left: 2rem; */
+    /* padding-right: 2rem; */
+    /* background-color: rgb(250, 250, 250); */
+/* } */
+/* img[data-v-96be9aef] {
+    display: flex;
+    border-radius: 20%;
+    height: 2.6rem;
+}  */
+/* */ 
