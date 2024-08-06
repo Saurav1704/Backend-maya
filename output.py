@@ -6,10 +6,24 @@ from st_aggrid import AgGrid, GridOptionsBuilder, AgGridTheme
 from generate import generate_response
 from database import read_sql_query
 # from database import get_data_from_service
-
+import plotly.express as px
 
 user_icon = 'icon.png'
 assistant_icon = 'ai.jpg'
+
+def show_history(st):
+    #load all the stored chat history
+        if len(st.session_state.messages) > 0:
+            for message in st.session_state.messages:
+                role = message.get('role')
+                avatar = message.get('avatar', assistant_icon if role == 'assistant' else user_icon)
+                if message.get('data') == None:
+                    response_df = pd.DataFrame()
+                else:
+                    response_df = pd.DataFrame(message['data'])
+                show_assistant_message(st , role  , avatar  , response_md = message['content']  , response_df = response_df  ) 
+
+
 
 def show_output(st , question):
         #load all the stored chat history
@@ -86,10 +100,37 @@ def show_assistant_message( st  , role , avatar  , response_md , response_df = p
                         del gb
                         paginated_data = pd.DataFrame(grid_response['data'])
                     with tab2:
-                        if len(paginated_data.columns) == 2 and paginated_data.dtypes[1] in ['int64', 'float64']:
-                            st.bar_chart(data=paginated_data.set_index(paginated_data.columns[0]))
+                        if len(paginated_data.columns) == 2 and paginated_data.dtypes[1] in ['int64', 'float64'] or st.session_state.load_data:
+                            st.session_state.load_data = True
+                            # User input for graph type selection
+                            # graph_type = st.radio("Select graph type:", ["Bar Graph", "Line Plot", "Histogram"])
+                            # graphs = ["Bar Graph", "Line Plot", "Histogram"]
+
+                            
+                            graphs = st.selectbox("Select Chart:", ["Bar Graph", "Line Plot", "Histogram"])
+            
+                            x_data = paginated_data[paginated_data.columns[0]]
+                            y_data = paginated_data[paginated_data.columns[1]]
+                            
+                            if graphs == "Bar Graph":
+                                st.session_state.graph_type = "Bar Graph"
+                                st.bar_chart(data=paginated_data.set_index(paginated_data.columns[0]))
+
+                            elif graphs == "Line Plot":
+                                st.session_state.graph_type = "Line Plot"
+                                fig = px.line(paginated_data, x=x_data, y=y_data, title=f'Line Chart of {paginated_data.columns[1]}')
+                                st.plotly_chart(fig, use_container_width=True)
+
+                            elif graphs == "Histogram":
+                                st.session_state.graph_type = "Histogram"
+                                hist_data = paginated_data[paginated_data.columns[1]]
+                                hist_label = paginated_data.columns[1]
+        
+                                fig = px.histogram(paginated_data, x=hist_data, title=f'Histogram of {hist_label}')
+                                st.plotly_chart(fig, use_container_width=True)
+                            
                         else:
                             st.markdown("The data is not suitable for a Bar chart.")
-                            return()
+                            return
                 else:
                     st.markdown(response_md)
