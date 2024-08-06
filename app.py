@@ -1,5 +1,4 @@
 # from generate import generate_response
-from speech import recognize_speech
 from utils import set_front_page
 from output import show_output ,show_history 
 
@@ -24,8 +23,8 @@ set_front_page(st)
 show_history(st)
 #Get user input
 question = st.chat_input("")
-if st.button("mic", help='Click this button to perform an action'):
-    question = recognize_speech(st)
+# if st.button("Studio microphone", help='Click this button to perform an action'):
+#     question = recognize_speech(st)
 # elif st.chat_input(""):
 #     question = st.chat_input("")
 
