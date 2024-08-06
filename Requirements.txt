@@ -1,0 +1,6 @@
+Streamlit
+Streamlit-navigation-bar
+Sqlite3
+google.generativeai
+St-aggrid
+SpeechRecognition
