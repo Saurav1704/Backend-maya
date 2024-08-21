@@ -1,0 +1,105 @@
+You have to provide the API key as text output.
+ 
+SECTION
+
+Example 1 - Display the material which is equal to Material 'SG22'. Then you have to give this key as output:
+base_url/C_BillOfMaterialTP?$filter=Material eq 'SG22'&$format=json
+
+Example 2 - Display all the data of this Bill of Material (BOM). Then you have to give this key as output:
+base_url/C_BillOfMaterialTP?$format=json
+ 
+Example 3 - Display the count of the Bill of Material (BOM). Then you have to give this key as output:
+base_url/C_BillOfMaterialTP?$count&$format=json
+
+Example 4 - Display the material SG22. Then you have to give this key as output:
+base_url/C_BillOfMaterialTP?$filter=Material eq 'SG22'&$format=json
+
+Example 5 - Display the data of top 25 bill of  material (BOM). Then you have to give this key as output:
+base_url/C_BillOfMaterialTP?$top=25&$format=json
+
+Example 6 - Display the Bill of material (BOM) based on plant and material. Then you have to give this key as output:
+base_url/C_BillOfMaterialTP?$filter=Material eq 'SG22' and Plant eq '1710'&$format=json
+
+Examplae 7 - Display the count of material where plant is eq 1710. Then you have to give this key as output:
+base_url/C_BillOfMaterialTP?$count&$filter=Plant eq '1710'&$format=json
+
+Example 8 - Display all Bill of Materials where the effective date is after '2024-01-01'
+Output:   base_url/C_BillOfMaterialTP?$filter=ValidFrom gt '2024-01-01'&$format=json
+ 
+Example 9 - Display only the Material and Plant fields for all Bill of Materials
+Output:   base_url/C_BillOfMaterialTP?$select=Material,Plant&$format=json
+ 
+Example 10 - Display the Bill of Materials, ordered by Material in descending order
+Output:   base_url/C_BillOfMaterialTP?$orderby=Material desc&$format=json
+ 
+Example 11 - Display the top 10 Bill of Materials where the BOM Usage is 'Production'
+Output:   base_url/C_BillOfMaterialTP?$top=10&$filter=BOMUsage eq 'Production'&$format=json
+ 
+Example 12 - Display the total number of Bill of Materials where the BOM Category is 'M'
+Output:   base_url/C_BillOfMaterialTP?$count&$filter=BOMCategory eq 'M'&$format=json
+ 
+Example 13 - Display all unique values of the BOM Usage field
+Output:   base_url/C_BillOfMaterialTP?$apply=groupby((BOMUsage))&$format=json
+ 
+Example 14 - Display all Bill of Materials where the Base Quantity is greater than or equal to 100
+Output:   base_url/C_BillOfMaterialTP?$filter=BaseQuantity ge 100&$format=json
+ 
+Example 15- Display all Bill of Materials:
+Output:   base_url/C_BillOfMaterialTP?$format=json
+ 
+Example 16- Display the first 10 Bill of Materials:
+Output:   base_url/C_BillOfMaterialTP?$top=10&$format=json
+ 
+Example 17- Display the count of all Bill of Materials:
+Output:  base_url/C_BillOfMaterialTP?$count&$format=json
+ 
+Example 18- Display the Bill of Material for Material 'SG22':
+Output:   base_url/C_BillOfMaterialTP?$filter=Material eq 'SG22'&$format=json
+ 
+Example 19- Display all Bill of Materials where Material starts with 'SG':
+Output:   base_url/C_BillOfMaterialTP?$filter=startswith(Material,'SG')&$format=json
+ 
+Example 20- Display the count of Bill of Materials where Material is 'SG22':
+Output:   base_url/C_BillOfMaterialTP?$count&$filter=Material eq 'SG22'&$format=json
+ 
+Example 21- Display all Bill of Materials for Plant '1710':
+Output:   base_url/C_BillOfMaterialTP?$filter=Plant eq '1710'&$format=json
+ 
+Example 22- Display the count of Bill of Materials for Plant '1710':
+Output:   base_url/C_BillOfMaterialTP?$count&$filter=Plant eq '1710'&$format=json
+ 
+Example 23- Display all Bill of Materials where Plant is not '1710':
+Output:   base_url/C_BillOfMaterialTP?$filter=Plant ne '1710'&$format=json
+ 
+Example 24- Display all Bill of Materials valid from '2023-01-01':
+Output:   base_url/C_BillOfMaterialTP?$filter=ValidFrom ge '2023-01-01'&$format=json
+ 
+Example 25- Display all Bill of Materials valid until '2024-12-31':
+Output:   base_url/C_BillOfMaterialTP?$filter=ValidTo le '2024-12-31'&$format=json
+ 
+Example 26- Display all Bill of Materials where the validity period includes '2023-06-15':
+Output:   base_url/C_BillOfMaterialTP?$filter=ValidFrom le '2023-06-15' and ValidTo ge '2023-06-15'&$format=json
+ 
+Example 27- Display all Bill of Materials with BOM Usage 'Production':
+Output:   base_url/C_BillOfMaterialTP?$filter=BOMUsage eq 'Production'&$format=json
+ 
+Example 28- Display all Bill of Materials with BOM Category 'M':
+Output:   base_url/C_BillOfMaterialTP?$filter=BOMCategory eq 'M'&$format=json
+ 
+Example 29- Display all Bill of Materials where Base Quantity is greater than 100:
+Output:   base_url/C_BillOfMaterialTP?$filter=BaseQuantity gt 100&$format=json
+ 
+Example 30- Display Bill of Materials for Material 'SG22' and Plant '1710':
+Output:   base_url/C_BillOfMaterialTP?$filter=Material eq 'SG22' and Plant eq '1710'&$format=json
+ 
+Example 31- Display Bill of Materials for Material 'SG22' or 'SG23' and Plant '1710':
+Output:   base_url/C_BillOfMaterialTP?$filter=(Material eq 'SG22' or Material eq 'SG23') and Plant eq '1710'&$format=json
+ 
+Example 32- Display Material and Plant for all Bill of Materials:
+Output:   base_url/C_BillOfMaterialTP?$select=Material,Plant&$format=json
+ 
+Example 33- Display Bill of Materials sorted by Material in ascending order:
+Output:   base_url/C_BillOfMaterialTP?$orderby=Material asc&$format=json
+ 
+Example 34- Display Bill of Materials sorted by ValidFrom in descending order:
+base_url/C_BillOfMaterialTP?$orderby=ValidFrom desc&$format=json

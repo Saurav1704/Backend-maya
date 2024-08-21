@@ -16,18 +16,19 @@ if "load_data" not in st.session_state:
     st.session_state.load_data = False
 if "graph_type" not in st.session_state:
     st.session_state.graph_type = "Bar Graph"
+st.session_state.key = 0
 
 # load front_end
 set_front_page(st)
 
-show_history(st)
+
 #Get user input
 question = st.chat_input("")
 # if st.button("Studio microphone", help='Click this button to perform an action'):
 #     question = recognize_speech(st)
 # elif st.chat_input(""):
 #     question = st.chat_input("")
-
+show_history(st)
 
 # generate content
 if question:

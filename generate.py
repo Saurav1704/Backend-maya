@@ -16,20 +16,60 @@ def generate_response(question):
         text = get_gemini_response(greet, question)
     else:
         text = get_gemini_response(prompts, question)
+    base_url = "http://slnxsaps4h15.marc.fr.ssg:50000/sap/opu/odata/sap/BILLOFMATERIALV2_SRV"
+    text = text.replace("base_url", base_url)
     return text
 
 # function  to load google gemini model and takes prompt as input 
 def get_prompts():
-    with open('prompts.txt', 'r') as file:
+    
+    with open('prompt_api.txt', 'r') as file:
         prompts = file.read().strip()
     with open('prompt_greeting.txt', 'r') as file_greet:
         greet = file_greet.read().strip()
+    # prompts = prompts.replace("base_url", base_url)
+    # print(prompts)
     return prompts,greet
 
 def get_gemini_response(question,prompt):
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content([prompt,question])
     return response.text
+
+
+
+# import ctypes
+# from transformers import BertTokenizer, BertForSequenceClassification
+# import torch
+
+# ctypes.windll.LoadLibrary("C://Users//nitiskumar//AppData//Local//anaconda3//Lib//site-packages//torch//lib//fbgemm.dll")
+# # Load pre-trained model and tokenizer
+# tokenizer = BertTokenizer.from_pretrained('huawei-noah/TinyBERT_General_4L_312D')
+# model = BertForSequenceClassification.from_pretrained('huawei-noah/TinyBERT_General_4L_312D')
+
+# def generate_response(question):
+#     prompts, greet = get_prompts()
+
+#     if question.lower() in ["hello", "hi", "who are you"]:
+#         text = get_tinybert_response(greet, question)
+#     else:
+#         text = get_tinybert_response(prompts, question)
+#     return text
+
+# # function to load prompts from files
+# def get_prompts():
+#     with open('prompts_api.txt', 'r') as file:
+#         prompts = file.read().strip()
+#     with open('prompt_greeting.txt', 'r') as file_greet:
+#         greet = file_greet.read().strip()
+#     return prompts, greet
+
+# def get_tinybert_response(prompt, question):
+#     inputs = tokenizer(prompt + " " + question, return_tensors='pt')
+#     outputs = model(**inputs)
+#     logits = outputs.logits
+#     predicted_class_id = torch.argmax(logits).item()
+#     return tokenizer.decode(predicted_class_id)
 
 
    
