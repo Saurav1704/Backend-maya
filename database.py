@@ -1,61 +1,35 @@
-# import sqlite3
-# import os
-# from sql import set_db
-import requests
-import pyodata
-from requests.auth import HTTPBasicAuth 
+import sqlite3
+import os
+from Sql import set_db
 
+def get_data_from_query(st,sql):
+    db = 'MYdb.db'
+    if not os.path.isfile(db):
+        set_db()
 
-def get_data_from_service(service):
-    odata_username = "Jchand" 
-    odata_password = "Bakzee@123"    
+    desc = {
+        "EBELN" :"Document Number",
+        "MATNR" :"Material",
+        "MAKTX" :"Material Description",
+        "BUKRS" :"Company code",
+        "AEDAT" :"Document Creation Date",
+        "BSTYP" :"Document Type",
+        "MTART" :"Material Type",
+        "ERSDA" :"Material Creation Date",
+    }
     try:
-        auth = HTTPBasicAuth(odata_username, odata_password)
-        response = requests.get(service , auth = auth)
-        response.raise_for_status()
-        service_data = response.json()
-        print(service_data)
-        if 'd' in service_data and 'results' in service_data['d']:
-            return_data = service_data['d']['results']
-            return return_data, None
+       conn = sqlite3.connect(db)
+       cur = conn.cursor()
+       cur.execute(sql)
+       rows = cur.fetchall()
+    except Exception as e:
+           st.write(str(e))
+    column_names = []
+    for description in cur.description:
+        if desc.get(description[0]):
+            column_names.append(desc.get(description[0]))
         else:
-            return None, "No BOM data found."
-    except requests.exceptions.RequestException as e:
-        return None, str(e)
-
-
-
-
-
-
-# def read_sql_query(sql):
-#     db = 'Mydb.db'
-#     if not os.path.isfile(db):
-#         set_db()
-
-#     desc = {
-#         "EBELN" :"Document Number",
-#         "MATNR" :"Material",
-#         "MAKTX" :"Material Description",
-#         "BUKRS" :"Company code",
-#         "AEDAT" :"Document Creation Date",
-#         "BSTYP" :"Document Type",
-#         "MTART" :"Material Type",
-#         "ERSDA" :"Material Creation Date",
-#     }
-#     try:
-#         conn = sqlite3.connect(db)
-#         cur = conn.cursor()
-#         cur.execute(sql)
-#         rows = cur.fetchall()
-#     except Exception as e :
-#         print(e)
-#     column_names = []
-#     for description in cur.description:
-#         if desc.get(description[0]):
-#             column_names.append(desc.get(description[0]))
-#         else:
-#             column_names.append("Total Number of orders")
-#     conn.commit()
-#     conn.close()
-#     return rows, column_names
+            column_names.append("Total Number of orders")
+    conn.commit()
+    conn.close()
+    return  column_names , rows

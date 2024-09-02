@@ -1,36 +1,65 @@
-# from generate import generate_response
-from utils import set_front_page
-from output import show_output ,show_history 
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from Database import  get_data_from_query
+from api import get_data_from_url
+
+# from generate import generate_response, get_gemini_response, get_prompts
+import google.generativeai as genai
+app = Flask(__name__)
+CORS(app)
+
+prompt_set = False # Status to check if prompt file is selected or not
+greeting_set = False # Status to check if greeting is shown or not
+def generate_response(question, filename ):
+    genai.configure(api_key="AIzaSyA4wedlllm0xX9r7ERgbGQjQhM1Q3cIk6Y")
+
+    if question.lower() in ["hello", "hi", "who are you"]:
+        greeting_msg = get_gemini_response(question ,filename = 'prompt_greeting.txt')
+    elif filename == 'prompt_bom.txt':
+        url = get_gemini_response(question ,filename = filename,)
+        base_url = "http://slnxsaps4h15.marc.fr.ssg:50000/sap/opu/odata/sap/BILLOFMATERIALV2_SRV"
+    elif filename == 'prompt_po.txt':
+        url = get_gemini_response(question ,filename = filename,)
+        base_url = "po_url"
+    elif filename == 'prompt_sql.txt':
+        query  = get_gemini_response(question ,filename = filename)
+
+    url = url.replace("base_url", base_url)
+    return greeting_msg ,url ,query
+
+def get_prompts(file_name):
+    # To set file name of the file  
+    with open(file_name , 'r') as file:
+        prompts = file.read().strip()
+        # print(prompts)
+    return prompts
 
 
-import streamlit as st
-
-#This is the session state of streamlit to control streamlit flow and variable initialization
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-if "greeting_shown" not in st.session_state:
-    st.session_state.greeting_shown = False
-if "front_loaded" not in st.session_state:
-    st.session_state.greeting_shown = False
-if "load_data" not in st.session_state:
-    st.session_state.load_data = False
-if "graph_type" not in st.session_state:
-    st.session_state.graph_type = "Bar Graph"
-st.session_state.key = 0
-
-# load front_end
-set_front_page(st)
+def get_gemini_response(question,filename):
+    # To set file name of the file
+    prompts = get_prompts(file_name = filename)
+    #generate gemini response
+    model = genai.GenerativeModel('gemini-pro')
+    response = model.generate_content([prompts,question])
+    print(response.text)
+    return response.text
 
 
-#Get user input
-question = st.chat_input("")
-# if st.button("Studio microphone", help='Click this button to perform an action'):
-#     question = recognize_speech(st)
-# elif st.chat_input(""):
-#     question = st.chat_input("")
-show_history(st)
+@app.route('/api/generate-response', methods=['POST'])
+def api_generate_response():
+    data = request.json
+    # print(data)
+    question = data.get('question')
+    filename = data.get('filename')
+    print(question)
+    response_greet , response_url ,response_query = generate_response(question, filename)
+    if response_greet is None and response_url is not None:
+        columns , data = get_data_from_url(response_url)
+    elif response_greet is not None and response_query is None:
+        columns , data = get_data_from_query(response_query)
 
-# generate content
-if question:
-# display content
-    show_output(st , question)
+    return jsonify({"greet": response_greet , "columns" : columns , "data" : data})
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)

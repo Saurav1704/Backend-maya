@@ -32,8 +32,6 @@ Output:   base_url/C_BillOfMaterialTP?$select=Material,Plant&$format=json
 Example 10 - Display the Bill of Materials, ordered by Material in descending order
 Output:   base_url/C_BillOfMaterialTP?$orderby=Material desc&$format=json
  
-Example 11 - Display the top 10 Bill of Materials where the BOM Usage is 'Production'
-Output:   base_url/C_BillOfMaterialTP?$top=10&$filter=BOMUsage eq 'Production'&$format=json
  
 Example 12 - Display the total number of Bill of Materials where the BOM Category is 'M'
 Output:   base_url/C_BillOfMaterialTP?$count&$filter=BOMCategory eq 'M'&$format=json
