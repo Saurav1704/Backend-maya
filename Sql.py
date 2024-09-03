@@ -1,9 +1,5 @@
 
 import sqlite3
-
-# Connect to sqlite3
-# connection = sqlite3.connect("EKKO.db")
-# connection = sqlite3.connect("MARA.db")
 #To create a database with the following name
 def set_db(): 
     connection = sqlite3.connect("MYdb.db")

@@ -2,7 +2,7 @@ import sqlite3
 import os
 from Sql import set_db
 
-def get_data_from_query(st,sql):
+def get_data_from_query(sql):
     db = 'MYdb.db'
     if not os.path.isfile(db):
         set_db()
@@ -23,7 +23,7 @@ def get_data_from_query(st,sql):
        cur.execute(sql)
        rows = cur.fetchall()
     except Exception as e:
-           st.write(str(e))
+           print(str(e))
     column_names = []
     for description in cur.description:
         if desc.get(description[0]):
