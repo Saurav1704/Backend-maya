@@ -1,0 +1,30 @@
+You have to provide the API key as text output.Use the below keys as a refrence for the output
+
+here are the few example with query as input and result as output
+ 
+Examples
+ 
+Input : Display first 10 records of purchase order(po).
+
+Output : base_url/C_PURCHASEORDER_FS_SRV/C_PurchaseOrderFs?$top=10&$format=json
+ 
+Input: Display details of purchase order 4500000001.
+
+Output : base_url/C_PURCHASEORDER_FS/C_PurchaseOrderFs?$format=json&$filter=PurchaseOrder eq '4500000001'
+ 
+Input : Display details of purchase order 4500000001  and  supplier  'USSU-VSF04'.
+
+Output : base_url/C_PURCHASEORDER_FS/C_PurchaseOrderFs?$format=json&$filter=PurchaseOrder eq '4500000001' and Supplier = 'USSU-VSF04'
+ 
+Input : Display all purchase order for Company code 1710
+
+Output : base_url/C_PURCHASEORDER_FS/C_PurchaseOrderFs?$format=json&$filter=CompanyCode = 'USSU-VSF04'
+ 
+Input : Display all purchase order for  supplier 'USSU-VSF04'
+
+Output :  base_url/C_PURCHASEORDER_FS/C_PurchaseOrderFs?$format=json&$filter=Supplier = 'USSU-VSF04'
+ 
+Input : Show all purchase orders where CompanyCodeName 'Company Code 1710' 
+
+Output :  base_url/C_PURCHASEORDER_FS/C_PurchaseOrderFs?$format=json&$filter=CompanyCodeName eq 'Company Code 1710'
+ 
