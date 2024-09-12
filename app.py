@@ -6,10 +6,9 @@ from api import get_data_from_url
 # from generate import generate_response, get_gemini_response, get_prompts
 import google.generativeai as genai
 app = Flask(__name__)
+app.config['prompt_file'] = ''
 CORS(app)
 
-prompt_set = False # Status to check if prompt file is selected or not
-greeting_set = False # Status to check if greeting is shown or not
 def generate_response(question, filename ):
     genai.configure(api_key="AIzaSyA4wedlllm0xX9r7ERgbGQjQhM1Q3cIk6Y")
     greeting_msg = url = base_url = query = ''
@@ -21,7 +20,7 @@ def generate_response(question, filename ):
         url = url.replace("base_url", base_url)
     elif filename == "prompt_po.txt":
         url = get_gemini_response(question ,filename = filename,)
-        base_url = "po_url"
+        base_url = "http://slnxsaps4h15.marc.fr.ssg:50000/sap/opu/odata/sap"
         url = url.replace("base_url", base_url)
     elif filename == "prompt_query.txt":
         query  = get_gemini_response(question ,filename = filename)
@@ -55,7 +54,7 @@ def api_generate_response():
     columns = data = []
     response_greet , response_url ,response_query = generate_response(question, filename)
     if response_greet =="" and response_url != "":
-        columns , data = get_data_from_url(response_url)
+        columns , data = get_data_from_url(response_url  , filename)
     elif response_greet =="" and response_query !="":
         columns , data = get_data_from_query(response_query)
 
