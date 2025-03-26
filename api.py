@@ -1,15 +1,16 @@
 import requests
-import pyodata
 import pandas as pd
 from requests.auth import HTTPBasicAuth 
 import xml.etree.ElementTree as ET # to parse XML
+import warnings
 
 def get_data_from_url(url , type ):
-    odata_username = "Jchand" 
-    odata_password = "Bakzee@123"
+    odata_username = "piaggarwal" 
+    odata_password = "Sopra@123"
     try:
         auth = HTTPBasicAuth(odata_username, odata_password)
-        response = requests.get(url , auth = auth)
+        warnings.filterwarnings("ignore", category=requests.packages.urllib3.exceptions.InsecureRequestWarning)
+        response = requests.get(url , auth = auth, timeout=15, verify=False)
         response.raise_for_status()
         # get data from url 
         service_response = response.json()
@@ -30,9 +31,10 @@ def get_data_from_url(url , type ):
         else:
             return None,[ "No data found."]
         
+    except requests.exceptions.SSLError:
+        return None, ["SSL error: Certificate verification failed. Try setting verify=False."]
     except requests.exceptions.RequestException as e:
-        return None, str(e)
-
+        return None, [f"Request error: {str(e)}"]
 
 
 def convert_data_to_json(json_data , type ):
@@ -46,30 +48,13 @@ def convert_data_to_json(json_data , type ):
         columns_needed = ["PurchaseOrder","PurchaseOrderType","PurchasingDocumentCategory","CompanyCode","Supplier"]
         columns_to_return = ['Purchase order' ,'Order Type' , 'Document Category' , 'Company Code' , 'Supplier']
     columns_to_drop = [ col for col in columns if col not in columns_needed]
-    # columns_to_drop = ['__metadata']
-    # # remove checks from the column names
-    # for col in columns:
-    #     if col.endswith('_ac') or col.endswith('_fc') or col.startswith('to_'):
-    #         #  checks from the column names
-    #         columns_to_drop.append(col)
-    # df = df.drop(columns=columns_to_drop, axis=1)
+
     df = df.drop(columns=columns_to_drop, axis=1)
     # final_columns = df.columns.to_list()        
     for index ,row in df.iterrows():
         # print(row)
         rows.append(row.to_list())
     return columns_to_return, rows
-
-
-    # columns = data[0].keys()
-    # json_data = []
-    # for row in data:
-    #     json_data.append(dict(zip(columns, row.values())))
-    # print( columns, json_data )
-    # return columns, json_data
-
-
-
 
 def parse_xml_data(xml ):
     # Get the root element

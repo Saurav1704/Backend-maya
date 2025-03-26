@@ -1,18 +1,67 @@
 You have to provide the API key as text output.Use the below keys as a refrence for the output
 Input : Display first 10 purchase order(po).
-Output : base_url/C_PURCHASEORDER_FS_SRV/C_PurchaseOrderFs?$top=25&$format=json
-
+Output : base_url/C_PurchaseOrderFs?$top=10&$format=json
+ 
 Input: Display details of purchase order 4500000001.
-Output : base_url/C_PURCHASEORDER_FS/C_PurchaseOrderFs?$top=25&$format=json&$filter=PurchaseOrder eq '4500000001'
-
+Output : base_url/C_PurchaseOrderFs?&$format=json&$filter=PurchaseOrder eq '4500000001'
+ 
 Input : Display details of purchase order 4500000001  and  supplier  'USSU-VSF04'.
-Output : base_url/C_PURCHASEORDER_FS/C_PurchaseOrderFs?$top=25&$format=json&$filter=PurchaseOrder eq '4500000001' and Supplier = 'USSU-VSF04'
-
-Input : Display all purchase order for Company code 1710
-Output : base_url/C_PURCHASEORDER_FS/C_PurchaseOrderFs?$top=25&$format=json&$filter=CompanyCode = 'USSU-VSF04'
-
+Output : base_url/C_PurchaseOrderFs?&$format=json&$filter=PurchaseOrder eq '4500000001' and Supplier = 'USSU-VSF04'
+ 
+Input : Retrieve Operations with Pagination (Top & Skip)
+Fetch operations with pagination control.
+Output : base_url/C_PurchaseOrderFs?$top=10&$skip=20&$format=json
+ 
 Input : Display all purchase order for  supplier 'USSU-VSF04'
-Output :  base_url/C_PURCHASEORDER_FS/C_PurchaseOrderFs?$top=25&$format=json&$filter=Supplier = 'USSU-VSF04'
-
+Output :  base_url/C_PurchaseOrderFs?&$format=json&$filter=Supplier = 'USSU-VSF04'
+ 
 Input : Show all purchase orders where CompanyCodeName 'Company Code 1710' 
-Output :  base_url/C_PURCHASEORDER_FS/C_PurchaseOrderFs?$top=25&$format=json&$filter=CompanyCodeName eq 'Company Code 1710'
+Output :  base_url/C_PurchaseOrderFs?&$format=json&$filter=CompanyCodeName eq 'Company Code 1710'
+
+Examples of Queries for C_PurchaseOrderFs Entity
+You have to provide the API key as text output. Use the below keys as a reference for the output.
+Example 1: Display All Purchase Orders
+Output: base_url/C_PurchaseOrderFs?$format=json
+Example 2: Fetch Purchase Order by ID
+Output: base_url/C_PurchaseOrderFs('ID')?$format=json
+Replace 'ID' with the actual ID of the purchase order.
+Example 3: Show Purchase Orders with Specific Purchase Order Type
+Output: base_url/C_PurchaseOrderFs?$filter=PurchaseOrderType eq 'NB'&$format=json
+Replace 'NB' with the desired purchase order type.
+Example 4: Display Purchase Orders with Specific Purchasing Document Category
+Output: base_url/C_PurchaseOrderFs?$filter=PurchasingDocumentCategory eq 'B'&$format=json
+Replace 'B' with the desired purchasing document category.
+Example 5: Fetch Purchase Orders with Specific Company Code
+Output: base_url/C_PurchaseOrderFs?$filter=CompanyCode eq '1710'&$format=json
+Replace '1710' with the desired company code.
+Example 6: Display Purchase Orders with Specific Supplier
+Output: base_url/C_PurchaseOrderFs?$filter=Supplier eq 'S001'&$format=json
+Replace 'S001' with the desired supplier.
+Example 7: Show Purchase Orders with Purchase Order Type 'NB' and Company Code '1710'
+Output: base_url/C_PurchaseOrderFs?$filter=PurchaseOrderType eq 'NB' and CompanyCode eq '1710'&$format=json
+Example 8: Fetch Purchase Orders with Purchasing Document Category 'B' and Supplier 'S001'
+Output: base_url/C_PurchaseOrderFs?$filter=PurchasingDocumentCategory eq 'B' and Supplier eq 'S001'&$format=json
+Example 9: Display Purchase Orders with Purchase Order Type 'NB' and Purchasing Document Category 'B'
+Output: base_url/C_PurchaseOrderFs?$filter=PurchaseOrderType eq 'NB' and PurchasingDocumentCategory eq 'B'&$format=json
+Example 10: Show Purchase Orders with Company Code '1710' and Supplier 'S001'
+Output: base_url/C_PurchaseOrderFs?$filter=CompanyCode eq '1710' and Supplier eq 'S001'&$format=json
+Example 11: Fetch Top 10 Purchase Orders
+Output: base_url/C_PurchaseOrderFs?$top=10&$format=json
+Example 12: Display Purchase Orders Sorted by Purchase Order in Descending Order
+Output: base_url/C_PurchaseOrderFs?$orderby=PurchaseOrder desc&$format=json
+Example 13: Show Count of Purchase Orders
+Output: base_url/C_PurchaseOrderFs/$count?$format=json
+Example 14: Fetch Purchase Orders with Specific Purchase Order Type and Company Code
+Output: base_url/C_PurchaseOrderFs?$filter=PurchaseOrderType eq 'NB' and CompanyCode eq '1710'&$format=json
+Example 15: Display Purchase Orders with Purchasing Document Category 'B' and Supplier 'S001'
+Output: base_url/C_PurchaseOrderFs?$filter=PurchasingDocumentCategory eq 'B' and Supplier eq 'S001'&$format=json
+Example 16: Show Purchase Orders with Purchase Order Type 'NB' and Purchasing Document Category 'B'
+Output: base_url/C_PurchaseOrderFs?$filter=PurchaseOrderType eq 'NB' and PurchasingDocumentCategory eq 'B'&$format=json
+Example 17: Fetch Purchase Orders with Company Code '1710' and Supplier 'S001'
+Output: base_url/C_PurchaseOrderFs?$filter=CompanyCode eq '1710' and Supplier eq 'S001'&$format=json
+Example 18: Display Purchase Orders with Specific Purchase Order and Purchase Order Type
+Output: base_url/C_PurchaseOrderFs?$filter=PurchaseOrder eq '4500012345' and PurchaseOrderType eq 'NB'&$format=json
+Example 19: Show Purchase Orders with Purchasing Document Category 'B' and Company Code '1710'
+Output: base_url/C_PurchaseOrderFs?$filter=PurchasingDocumentCategory eq 'B' and CompanyCode eq '1710'&$format=json
+Example 20: Fetch Purchase Orders with Supplier 'S001' and Purchasing Document Category 'B'
+Output: `base_url/C_PurchaseOrderFs?$filter=Supplier eq 'S001' and PurchasingDocumentCategory eq 'B'&$format

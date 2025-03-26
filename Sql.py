@@ -1,4 +1,3 @@
-
 import sqlite3
 #To create a database with the following name
 def set_db(): 
